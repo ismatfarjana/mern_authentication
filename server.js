@@ -8,6 +8,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const passport = require("passport");
+const users = require("./routes/api/users");
 
 const app = express();
 // Bodyparser middleware
@@ -31,5 +33,18 @@ mongoose
   })
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
+
+//Passport middleware
+app.use(passport.initialize());
+
+//passsport config
+require("./config/passport")(passport);
+
+app.get("/", (req, res) => {
+  res.send("welcome!");
+});
+//routes
+
+app.use("/api/users", users);
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
