@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 1111;
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+const db = process.env.ALTAS_URI;
 // Connect to MongoDB
 mongoose
   .connect(db, {
@@ -41,7 +41,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 app.get("/", (req, res) => {
-  res.send("welcome!");
+  res.send("welcome");
 });
 //routes
 
